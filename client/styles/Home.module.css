@@ -113,46 +113,7 @@
     flex-direction: column;
   }
 }
-.subheader {
-  padding: 20px 0;
-  font-weight: 600;
-  color: #555
-}
-.subheader ul {
-  display: flex;
-  justify-content: space-between;
-}
-.subheader ul a {
-  cursor: pointer;
-}
-.subheader ul a > b {
-  background: #8b00ff;
-  padding: 8px 24px;
-  color: #fff;
-  border-radius: 8px;
-}
-.subheader ul a > b:hover {
-  background: #ad00ff;
-  padding: 8px 24px;
-  color: #fff;
-  border-radius: 8px;
-}
-.subheader ul a:hover {
-    color: #8b00ff;
-}
 
-.logo {
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  /* font-weight: bold; */
-}
-.logo img {
-  margin-right: 0px;
-  height: 100px;
-  width: auto;
-}
 .main_img {
   width: 50%;
   height: 540px;
@@ -253,14 +214,23 @@
 }
 
 .contacts {
-  display: flex;
-  align-items: center;
 }
 .map {
-  width: 50%;
+  display: flex;
+  margin-bottom: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px #ecf;
+  overflow: hidden;
 }
 .contacts_info {
-  padding: 30px 60px;
+  margin-top: 40px;
+  display: flex;
+  margin-bottom: 80px;
+}
+.contacts_info img {
+  width: 40%;
+  height: auto;
+  margin-right: 40px;
 }
 .contacts_info h2 {
   margin-bottom: 20px;
@@ -288,7 +258,7 @@
   position: relative;
 }
 
-.tears_block svg {
+.left_blob {
   position: absolute;
   top: -200px;
   z-index: 0;
@@ -315,21 +285,6 @@
 .login {
     display: flex;
     width: 100%;
-}
-.login label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-  font-size: 18px;
-}
-.login input {
-  padding: 16px;
-  width: 300px;
-  outline: none;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #98a;
-  margin-bottom: 20px;
 }
 .login button {
   
