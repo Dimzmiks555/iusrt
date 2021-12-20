@@ -53,7 +53,10 @@ export default function LK() {
                 </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    <h2 style={{marginBottom: 40, marginTop: 14 }}>Афанасьев Николай Дмитриевич</h2>
+                    <h2 style={{marginTop: 14 }}>ХОЛОДКОВА ЮЛИЯ МИХАЙЛОВНА</h2>
+                    <h3 style={{marginTop: 14 }}>ИНН 365200092646</h3>
+                    <h3>ОГРНИП 304365211200042</h3>
+                    <h3>Система УСН</h3>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                 Item Two

@@ -26,44 +26,91 @@ const marksDocs = [
     label: '0',
   },
   {
-    value: 10,
+    value: 25,
     label: '25',
   },
   {
-    value: 20,
+    value: 50,
     label: '50',
   },
   {
-    value: 30,
+    value: 75,
     label: '75',
   },
   {
-    value: 40,
+    value: 100,
     label: '100',
   },
   {
-    value: 50,
+    value: 125,
     label: '125',
   },
   {
-    value: 60,
+    value: 150,
     label: '150',
   },
   {
-    value: 70,
+    value: 175,
     label: '175',
   },
   {
-    value: 80,
+    value: 200,
     label: '200',
   },
   {
-    value: 90,
+    value: 225,
     label: '225',
   },
   {
-    value: 100,
+    value: 250,
     label: '250',
+  },
+];
+
+const marksPeople = [
+  {
+    value: 0,
+    label: '0',
+  },
+  {
+    value: 1,
+    label: '1',
+  },
+  {
+    value: 2,
+    label: '2',
+  },
+  {
+    value: 3,
+    label: '3',
+  },
+  {
+    value: 4,
+    label: '4',
+  },
+  {
+    value: 5,
+    label: '5',
+  },
+  {
+    value: 6,
+    label: '6',
+  },
+  {
+    value: 7,
+    label: '7',
+  },
+  {
+    value: 8,
+    label: '8',
+  },
+  {
+    value: 9,
+    label: '9',
+  },
+  {
+    value: 10,
+    label: '10',
   },
 ];
 
@@ -71,16 +118,17 @@ function valuetext(value) {
   return `${value}`;
 }
 
-export function DiscreteSliderMarks({marks}) {
+export function DiscreteSliderMarks({marks, max}) {
   return (
     <Box fullWidth>
       <Slider
         aria-label="Custom marks"
         defaultValue={20}
         getAriaValueText={valuetext}
-        step={10}
+        step={+max / 10}
         valueLabelDisplay="auto"
         marks={marks}
+        max={max}
       />
     </Box>
   );
@@ -207,15 +255,16 @@ export default function Home() {
                         <FormControlLabel value="male" control={<Radio />} label="УСН 15%" />
                         <FormControlLabel value="male" control={<Radio />} label="ОСН" />
                         <FormControlLabel value="other" control={<Radio />} label="Патентная" />
+                        <FormControlLabel value="other" control={<Radio />} label="Нулевая отчетность" />
                       </RadioGroup>
                     </FormControl>
                     <h2 style={{marginBottom: 20, marginTop: 20}}>Количество документов в месяц / шт.</h2>
-                    <DiscreteSliderMarks marks={marksDocs}></DiscreteSliderMarks>
+                    <DiscreteSliderMarks marks={marksDocs} max={250}></DiscreteSliderMarks>
                     
                     <h2 style={{marginBottom: 20, marginTop: 20}}>Количество сотрудников / чел.</h2>
-                    <DiscreteSliderMarks marks={marksDocs}></DiscreteSliderMarks>
-                    <h2 style={{marginBottom: 20, marginTop: 20}}>Количество кассовых аппаратов / шт.</h2>
-                    <DiscreteSliderMarks marks={marksDocs}></DiscreteSliderMarks>
+                    <DiscreteSliderMarks marks={marksPeople} max={10}></DiscreteSliderMarks>
+                    {/* <h2 style={{marginBottom: 20, marginTop: 20}}>Количество кассовых аппаратов / шт.</h2>
+                    <DiscreteSliderMarks marks={marksDocs} ></DiscreteSliderMarks> */}
                   </div>
               </div>
               <svg className={styles.left_blob} xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 500 500">
