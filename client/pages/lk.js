@@ -1,10 +1,18 @@
 import Link from 'next/link'
+import { Button, Chip } from '@mui/material';
 import Header from '../components/header/Header'
 import styles from '../styles/Home.module.css'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import InboxIcon from '@mui/icons-material/Inbox';
+import DraftsIcon from '@mui/icons-material/Drafts';
 import { useState } from 'react';
 
 function TabPanel(props) {
@@ -31,6 +39,12 @@ function TabPanel(props) {
 
 export default function LK() {
 
+  const [selectedIndex, setSelectedIndex] = useState(1);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
+
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -48,8 +62,9 @@ export default function LK() {
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Главная"  />
-                    <Tab label="Выплаты"  />
-                    <Tab label="Долги"  />
+                    <Tab label="Квитанции"  />
+                    <Tab label="Отчёты"  />
+                    <Tab label="Оплата Услуг"  />
                 </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -59,10 +74,99 @@ export default function LK() {
                     <h3>Система УСН</h3>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                Item Two
+                  
+                <h2 style={{marginBottom: 20 }}>Квитанции</h2>
+                <Box sx={{display: 'flex'}}>
+                  <Box sx={{ width: '100%', maxWidth: 240, bgcolor: 'background.paper', mr: 4 }}>
+                    <List component="nav" aria-label="secondary mailbox folder">
+                      <ListItemButton
+                        selected={selectedIndex === 1}
+                        onClick={(event) => handleListItemClick(event, 1)}
+                      >
+                        <ListItemText primary="Требуют оплаты" />
+                      </ListItemButton>
+                      <ListItemButton
+                        selected={selectedIndex === 2}
+                        onClick={(event) => handleListItemClick(event, 2)}
+                      >
+                        <ListItemText primary="Оплаченные" />
+                      </ListItemButton>
+                      <ListItemButton
+                        selected={selectedIndex === 3}
+                        onClick={(event) => handleListItemClick(event, 3)}
+                      >
+                        <ListItemText primary="Все" />
+                      </ListItemButton>
+                    </List>
+                  </Box>
+                  <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                      <Box sx={{p:3, boxShadow: '0 4px 10px #ccc', borderRadius: '10px', display: 'flex', justifyContent: 'space-between'}}>
+                          <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+                              <Box>
+                                <h3>Квитанция № 5896243</h3>
+                                <p>от 23.12.2021</p>
+                              </Box>
+                              <Box>
+                                <Button variant="contained" sx={{mr: 2}}>Скачать</Button>
+                                <Button variant="outlined">Просмотреть</Button>
+                              </Box>
+                          </Box>
+                          <Box>
+                              <h3></h3>
+                          </Box>
+                          <Box>
+                              <h3>Сумма</h3>
+                              <h2>10 000 ₽</h2>
+                              <Chip color='error' label="Требует оплаты" sx={{mt: 1}}></Chip>
+                          </Box>
+                      </Box>
+                  </Box>
+                </Box>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                Item Three
+                  
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                  <h2 style={{marginBottom: 20 }}>Оплата услуг</h2>
+                  <Box sx={{display: 'flex'}}>
+                    <Box sx={{ width: '100%', maxWidth: 240, bgcolor: 'background.paper', mr: 4 }}>
+                      <List component="nav" aria-label="secondary mailbox folder">
+                        <ListItemButton
+                          selected={selectedIndex === 1}
+                          onClick={(event) => handleListItemClick(event, 1)}
+                        >
+                          <ListItemText primary="Требуют оплаты" />
+                        </ListItemButton>
+                        <ListItemButton
+                          selected={selectedIndex === 2}
+                          onClick={(event) => handleListItemClick(event, 2)}
+                        >
+                          <ListItemText primary="История" />
+                        </ListItemButton>
+                      </List>
+                    </Box>
+                    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                        <Box sx={{p:3, boxShadow: '0 4px 10px #ccc', borderRadius: '10px', display: 'flex', justifyContent: 'space-between'}}>
+                            <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+                                <Box>
+                                  <h3>Пакет услуг № 3</h3>
+                                  <p>от 23.12.2021</p>
+                                </Box>
+                                <Box>
+                                  <Button variant="contained">Оплатить</Button>
+                                </Box>
+                            </Box>
+                            <Box>
+                                <h3></h3>
+                            </Box>
+                            <Box>
+                                <h3>Сумма</h3>
+                                <h2>20 000 ₽</h2>
+                                <Chip color='error' label="Требует оплаты" sx={{mt: 1}}></Chip>
+                            </Box>
+                        </Box>
+                    </Box>
+                  </Box>
                 </TabPanel>
             </div>
         </main>

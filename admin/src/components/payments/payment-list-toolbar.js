@@ -8,7 +8,6 @@ import {
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
-import Link from 'next/link'
 import { Upload as UploadIcon } from '../../icons/upload';
 import { Download as DownloadIcon } from '../../icons/download';
 
@@ -30,7 +29,7 @@ export const CustomerListToolbar = (props) => (
         Клиенты
       </Typography>
       <Box sx={{ m: 1 }}>
-        {/* <Button
+        <Button
           startIcon={(<UploadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
         >
@@ -41,15 +40,13 @@ export const CustomerListToolbar = (props) => (
           sx={{ mr: 1 }}
         >
           Export
-        </Button> */}
-        <Link href="/clients/create">
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Добавить клиента
-          </Button>
-        </Link>
+        </Button>
+        <Button
+          color="primary"
+          variant="contained"
+        >
+          Add Customers
+        </Button>
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>
@@ -70,7 +67,7 @@ export const CustomerListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Найти клиента"
+              placeholder="Search customer"
               variant="outlined"
             />
           </Box>

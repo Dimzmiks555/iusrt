@@ -151,7 +151,7 @@ export default function Home() {
                         </ul>
                     </div>
                     
-                    <a href='#tears'><button className={styles.main_button}> Просчитать стоимость </button></a>
+                    <a href='#tears'><button className={styles.main_button}>Войти в личный кабинет</button></a>
                     
                 </div>
                 <div className={styles.main_img}>
@@ -212,73 +212,6 @@ export default function Home() {
                       </div>
                   </div>
               </div>
-            </div>
-        </section>
-        <section className={styles.container} id="tears">
-            <div className={styles.tears_block} style={{display: 'flex', justifyContent: 'space-between'}}>
-              <div className={styles.tears} >
-                  <h1>Калькулятор</h1>
-                  <div className={styles.calculator}>
-                    <h2 style={{marginBottom: 20, marginTop: 20}}>Организационно-правовая форма</h2>
-                    <FormControl component="fieldset">
-                      <RadioGroup
-                        aria-label="gender"
-                        defaultValue="female"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel value="female" control={<Radio />} label="ИП" />
-                        <FormControlLabel value="male" control={<Radio />} label="ООО" />
-                        <FormControlLabel value="other" control={<Radio />} label="ТСЖ" />
-                      </RadioGroup>
-                    </FormControl>
-                    <h2 style={{marginBottom: 20, marginTop: 20}}>Основной вид деятельности</h2>
-                    <FormControl component="fieldset">
-                      <RadioGroup
-                        aria-label="gender"
-                        defaultValue="female"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel value="female" control={<Radio />} label="Услуги" />
-                        <FormControlLabel value="male" control={<Radio />} label="Торговля" />
-                        <FormControlLabel value="other" control={<Radio />} label="Производство" />
-                        <FormControlLabel value="other" control={<Radio />} label="Строительство" />
-                      </RadioGroup>
-                    </FormControl>
-                    <h2 style={{marginBottom: 20, marginTop: 20}}>Система налогообложения</h2>
-                    <FormControl component="fieldset">
-                      <RadioGroup
-                        aria-label="gender"
-                        defaultValue="female"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel value="female" control={<Radio />} label="УСН 6%" />
-                        <FormControlLabel value="male" control={<Radio />} label="УСН 15%" />
-                        <FormControlLabel value="male" control={<Radio />} label="ОСН" />
-                        <FormControlLabel value="other" control={<Radio />} label="Патентная" />
-                        <FormControlLabel value="other" control={<Radio />} label="Нулевая отчетность" />
-                      </RadioGroup>
-                    </FormControl>
-                    <h2 style={{marginBottom: 20, marginTop: 20}}>Количество документов в месяц / шт.</h2>
-                    <DiscreteSliderMarks marks={marksDocs} max={250}></DiscreteSliderMarks>
-                    
-                    <h2 style={{marginBottom: 20, marginTop: 20}}>Количество сотрудников / чел.</h2>
-                    <DiscreteSliderMarks marks={marksPeople} max={10}></DiscreteSliderMarks>
-                    {/* <h2 style={{marginBottom: 20, marginTop: 20}}>Количество кассовых аппаратов / шт.</h2>
-                    <DiscreteSliderMarks marks={marksDocs} ></DiscreteSliderMarks> */}
-                  </div>
-              </div>
-              <svg className={styles.left_blob} xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 500 500">
-                <defs>
-                  <linearGradient id="gradient" x1="0%" x2="0%" y1="0%" y2="100%">
-                    <stop offset="0%" stopColor="#8B00FF"></stop>
-                    <stop offset="100%" stopColor="#DF00FF"></stop>
-                  </linearGradient>
-                </defs>
-                <path
-                  fill="url(#gradient)"
-                  d="M449 294.5q-46 44.5-92 53T280.5 388q-30.5 32-69 13.5T112 374q-61-9-73-66.5t12.5-108Q76 149 107 102.5t87-36q56 10.5 109.5 4t71.5 45q18 51.5 69 93t5 86z"
-                ></path>
-              </svg>
             </div>
         </section>
         <section id="partners">

@@ -42,7 +42,6 @@ export default function Header() {
             <div className={styles.container}>
                 <ul>
                   <li><a href='/#services'>Услуги</a></li>
-                  <li><a href='/#tears'>Калькулятор</a></li>
                   <li><a href='/#contacts'>Контакты</a></li>
                   <li><a href='/#partners'>Партнеры</a></li>
                   <Link href='/login'><li><a><b>Личный кабинет</b></a></li></Link>

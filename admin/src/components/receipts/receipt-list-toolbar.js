@@ -8,11 +8,10 @@ import {
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
-import Link from 'next/link'
 import { Upload as UploadIcon } from '../../icons/upload';
 import { Download as DownloadIcon } from '../../icons/download';
 
-export const CustomerListToolbar = (props) => (
+export const ReceiptListToolbar = (props) => (
   <Box {...props}>
     <Box
       sx={{
@@ -27,29 +26,15 @@ export const CustomerListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Клиенты
+        Квитанции
       </Typography>
       <Box sx={{ m: 1 }}>
-        {/* <Button
-          startIcon={(<UploadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Import
-        </Button>
         <Button
-          startIcon={(<DownloadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
+          color="primary"
+          variant="contained"
         >
-          Export
-        </Button> */}
-        <Link href="/clients/create">
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Добавить клиента
-          </Button>
-        </Link>
+          Выставить квитанцию
+        </Button>
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>
@@ -70,7 +55,7 @@ export const CustomerListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Найти клиента"
+              placeholder="Search customer"
               variant="outlined"
             />
           </Box>

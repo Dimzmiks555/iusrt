@@ -19,7 +19,7 @@ export const Budget = (props) => (
             gutterBottom
             variant="overline"
           >
-            BUDGET
+            Доход
           </Typography>
           <Typography
             color="textPrimary"
@@ -61,7 +61,7 @@ export const Budget = (props) => (
           color="textSecondary"
           variant="caption"
         >
-          Since last month
+          За последний месяц
         </Typography>
       </Box>
     </CardContent>

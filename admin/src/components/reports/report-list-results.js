@@ -2,7 +2,6 @@ import { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import Link from 'next/link';
 import {
   Avatar,
   Box,
@@ -82,16 +81,16 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   />
                 </TableCell>
                 <TableCell>
-                  Имя
+                  Name
                 </TableCell>
                 <TableCell>
-                  Электронная почта
+                  Email
                 </TableCell>
                 <TableCell>
                   Location
                 </TableCell>
                 <TableCell>
-                  Номер телефона
+                  Phone
                 </TableCell>
                 <TableCell>
                   Registration date
@@ -123,31 +122,27 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                         src={customer.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {customer.sur_name?.[0]}
+                        {getInitials(customer.name)}
                       </Avatar>
-                      <Link href={`/clients/${customer.id}`}>
-                        <a>
-                        <Typography
-                          color="textPrimary"
-                          variant="body1"
-                        >
-                        {customer.sur_name} {customer.first_name} {customer.last_name}
-                        </Typography>
-                        </a>
-                      </Link>
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        {customer.name}
+                      </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.city}, ${customer.street}, ${customer.house}, ${customer.flat}`}
+                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
                   </TableCell>
                   <TableCell>
                     {customer.phone}
                   </TableCell>
                   <TableCell>
-                    {new Date(customer.createdAt).toLocaleDateString()}
+                    {format(customer.createdAt, 'dd/MM/yyyy')}
                   </TableCell>
                 </TableRow>
               ))}

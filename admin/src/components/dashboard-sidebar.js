@@ -20,43 +20,28 @@ const items = [
   {
     href: '/',
     icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
+    title: 'Статистика'
   },
   {
-    href: '/customers',
+    href: '/clients',
     icon: (<UsersIcon fontSize="small" />),
-    title: 'Customers'
+    title: 'Клиенты'
   },
   {
-    href: '/products',
+    href: '/receipts',
     icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
+    title: 'Квитанции'
   },
   {
-    href: '/account',
+    href: '/reports',
     icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
+    title: 'Отчеты'
   },
   {
-    href: '/settings',
+    href: '/payments',
     icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
+    title: 'Платежи'
   },
-  {
-    href: '/login',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Error'
-  }
 ];
 
 export const DashboardSidebar = (props) => {
@@ -91,7 +76,7 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 3, my: 4 }}>
             <NextLink
               href="/"
               passHref
@@ -106,51 +91,8 @@ export const DashboardSidebar = (props) => {
               </a>
             </NextLink>
           </Box>
-          <Box sx={{ px: 2 }}>
-            <Box
-              sx={{
-                alignItems: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                cursor: 'pointer',
-                display: 'flex',
-                justifyContent: 'space-between',
-                px: 3,
-                py: '11px',
-                borderRadius: 1
-              }}
-            >
-              <div>
-                <Typography
-                  color="inherit"
-                  variant="subtitle1"
-                >
-                  Афанасьев Николай
-                </Typography>
-                <Typography
-                  color="neutral.400"
-                  variant="body2"
-                >
-                  Тариф
-                  {' '}
-                  : Премиум
-                </Typography>
-              </div>
-              {/* <SelectorIcon
-                sx={{
-                  color: 'neutral.500',
-                  width: 14,
-                  height: 14
-                }}
-              /> */}
-            </Box>
-          </Box>
+          
         </div>
-        <Divider
-          sx={{
-            borderColor: '#2D3748',
-            my: 3
-          }}
-        />
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
             <NavItem
