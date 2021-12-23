@@ -1,0 +1,4 @@
+.pdf_canvas canvas {
+    width: 100% !important;
+    height: auto !important;
+}

@@ -7,6 +7,7 @@ import {
   InputAdornment,
   SvgIcon, Typography
 } from '@mui/material';
+import Link from 'next/link'
 import { Search as SearchIcon } from '../../icons/search';
 import { Upload as UploadIcon } from '../../icons/upload';
 import { Download as DownloadIcon } from '../../icons/download';
@@ -29,12 +30,14 @@ export const ReceiptListToolbar = (props) => (
         Квитанции
       </Typography>
       <Box sx={{ m: 1 }}>
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Выставить квитанцию
-        </Button>
+        <Link href="/receipts/create">
+          <Button
+            color="primary"
+            variant="contained"
+          >
+            Выставить квитанцию
+          </Button>
+        </Link>
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>
