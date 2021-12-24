@@ -74,7 +74,7 @@ const thumbsContainer = {
       }
   }
 
-export const ReceiptCreateForm = ({clients, ...rest }) => {
+export const PaymentCreateForm = ({clients, ...rest }) => {
 
 
     const [files, setFiles] = useState([]);
@@ -151,7 +151,7 @@ export const ReceiptCreateForm = ({clients, ...rest }) => {
             sx={{ m: 1 }}
             variant="h4"
             >
-            Выставление квитанции
+            Создание платежа
             </Typography>
             <Box sx={{ m: 1 }}>
             {/* <Button
@@ -207,11 +207,9 @@ export const ReceiptCreateForm = ({clients, ...rest }) => {
                         </Box>
                     </Box>
                     <Box sx={{mb: 2,p: 6, width: '60%', boxShadow: '0 10px 20px #aaa', borderRadius: '20px'}} className='pdf_canvas'>
-                        <h2>Предварительный просмотр</h2>
+                        <h2>Комментарий</h2>
                         <Box sx={{mt:2}} >
-                            <Document file={files[0]?.preview}>
-                                <Page pageNumber={1}></Page>
-                            </Document>
+                            <TextField minRows={14} multiline fullWidth></TextField>
                         </Box>
                     </Box>
                 </Box>

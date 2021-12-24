@@ -13,20 +13,20 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
+  Chip
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 
-export const ReceiptListResults = ({ customers, ...rest }) => {
+export const ReceiptListResults = ({ receipts, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedCustomerIds = receipts?.rows?.map((customer) => customer.id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -71,7 +71,7 @@ export const ReceiptListResults = ({ customers, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
+                    checked={selectedCustomerIds.length === receipts?.rows?.length}
                     color="primary"
                     indeterminate={
                       selectedCustomerIds.length > 0
@@ -98,7 +98,7 @@ export const ReceiptListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {receipts?.rows?.map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -112,37 +112,38 @@ export const ReceiptListResults = ({ customers, ...rest }) => {
                     />
                   </TableCell>
                   <TableCell>
+                    {console.log(customer)}
                     <Box
                       sx={{
                         alignItems: 'center',
                         display: 'flex'
                       }}
                     >
-                      <Avatar
-                        src={customer.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {customer.id}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                  {customer.client?.sur_name} {customer.client?.first_name} {customer.client?.last_name}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {customer.summ}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {
+                      customer.status == 'need_payment' ? (
+                        <Chip color="error" label="Не оплачено"></Chip>
+                      ) : (
+                        <Chip color="success" label="Оплачено"></Chip>
+                      )
+                    }
                   </TableCell>
                   <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                    {new Date(customer.createdAt)?.toLocaleDateString()}
                   </TableCell>
                 </TableRow>
               ))}
@@ -152,11 +153,10 @@ export const ReceiptListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={receipts?.count}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
-        rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 25]}
       />
     </Card>

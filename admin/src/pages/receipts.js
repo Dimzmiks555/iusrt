@@ -7,7 +7,7 @@ import { customers } from '../__mocks__/customers';
 import { ReceiptListToolbar } from 'src/components/receipts/receipt-list-toolbar';
 import { ReceiptListResults } from 'src/components/receipts/receipt-list-results';
 
-const Customers = () => (
+const Customers = ({data}) => (
   <>
     <Head>
       <title>
@@ -24,7 +24,7 @@ const Customers = () => (
       <Container maxWidth={false}>
         <ReceiptListToolbar />
         <Box sx={{ mt: 3 }}>
-          <ReceiptListResults customers={customers} />
+          <ReceiptListResults receipts={data} />
         </Box>
       </Container>
     </Box>
@@ -37,3 +37,17 @@ Customers.getLayout = (page) => (
 );
 
 export default Customers;
+
+export async function getServerSideProps() {
+
+  const res = await fetch(`http://localhost:5000/receipt`)
+
+  const json = await res.json()
+
+  return {
+    props: {
+      data: json
+    }
+  }
+
+}

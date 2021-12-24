@@ -1,4 +1,5 @@
-import { AutoIncrement, Column, DataType, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
+import { AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
+import { Receipt } from "src/receipt/entities/receipt.entity";
 
 @Table({tableName: 'clients'})
 export class Client extends Model{
@@ -60,5 +61,6 @@ export class Client extends Model{
     @Column({type: DataType.STRING})
     postcode: string;
 
-    
+    @HasMany(() => Receipt)
+    receipts: Receipt[]
 }

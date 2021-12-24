@@ -1,15 +1,33 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { ReceiptService } from './receipt.service';
 import { CreateReceiptDto } from './dto/create-receipt.dto';
 import { UpdateReceiptDto } from './dto/update-receipt.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('receipt')
 export class ReceiptController {
   constructor(private readonly receiptService: ReceiptService) {}
 
   @Post()
-  create(@Body() createReceiptDto: CreateReceiptDto) {
-    return this.receiptService.create(createReceiptDto);
+  @UseInterceptors(FileInterceptor('file', {
+    limits: {
+      fileSize: 1000000000000
+    },
+    storage: diskStorage({
+      destination: './receipts'
+      , filename: (req, file, cb) => {
+        // Generating a 32 random chars long string
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('')
+        //Calling the callback passing the random name generated with the original extension name
+        cb(null, `${randomName}${extname(file.originalname)}`)
+      }
+    })
+  }))
+  create(@UploadedFile() file: Express.Multer.File, @Body() createReceiptDto: CreateReceiptDto) {
+    console.log(file)
+    return this.receiptService.create(createReceiptDto, file);
   }
 
   @Get()

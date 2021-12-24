@@ -8,6 +8,8 @@ import { ReportModule } from './report/report.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Client } from './client/entities/client.entity';
 import { Receipt } from './receipt/entities/receipt.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -22,6 +24,9 @@ import { Receipt } from './receipt/entities/receipt.entity';
       synchronize: true,
       autoLoadModels: true,
       sync: {alter: true}
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'receipts'),
     }),
     ClientModule, 
     ReceiptModule, 

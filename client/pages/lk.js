@@ -14,6 +14,7 @@ import Divider from '@mui/material/Divider';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import { useState } from 'react';
+import { ReceiptsItem } from '../components/receipts/receipts-item';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -37,7 +38,7 @@ function TabPanel(props) {
 
 
 
-export default function LK() {
+export default function LK({receipts}) {
 
   const [selectedIndex, setSelectedIndex] = useState(1);
 
@@ -100,26 +101,11 @@ export default function LK() {
                     </List>
                   </Box>
                   <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                      <Box sx={{p:3, boxShadow: '0 4px 10px #ccc', borderRadius: '10px', display: 'flex', justifyContent: 'space-between'}}>
-                          <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
-                              <Box>
-                                <h3>Квитанция № 5896243</h3>
-                                <p>от 23.12.2021</p>
-                              </Box>
-                              <Box>
-                                <Button variant="contained" sx={{mr: 2}}>Скачать</Button>
-                                <Button variant="outlined">Просмотреть</Button>
-                              </Box>
-                          </Box>
-                          <Box>
-                              <h3></h3>
-                          </Box>
-                          <Box>
-                              <h3>Сумма</h3>
-                              <h2>10 000 ₽</h2>
-                              <Chip color='error' label="Требует оплаты" sx={{mt: 1}}></Chip>
-                          </Box>
-                      </Box>
+                      {
+                        receipts?.rows?.map(receipt => (
+                          <ReceiptsItem receipt={receipt}></ReceiptsItem>
+                        ))
+                      }
                   </Box>
                 </Box>
                 </TabPanel>
@@ -203,4 +189,19 @@ export default function LK() {
         </footer>
     </div>
   )
+}
+
+
+export async function getServerSideProps() {
+
+  const res = await fetch(`http://localhost:5000/receipt`)
+
+  const json = await res.json()
+
+  return {
+    props: {
+      receipts: json
+    }
+  }
+
 }
