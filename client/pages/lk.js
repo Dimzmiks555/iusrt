@@ -13,8 +13,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReceiptsItem } from '../components/receipts/receipts-item';
+import ClientStore from '../components/stores/ClientStore';
+import jwt from 'jwt-decode'
+import { unstable_deprecatedPropType } from '@mui/utils';
+import { observer } from 'mobx-react';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -37,10 +41,11 @@ function TabPanel(props) {
   }
 
 
-
-export default function LK({receipts}) {
+const LK = observer( ({ client}) => {
 
   const [selectedIndex, setSelectedIndex] = useState(1);
+  const [userData, setUserData] = useState({});
+  const [receipts, setReceipts] = useState([]);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -52,14 +57,44 @@ export default function LK({receipts}) {
       setValue(newValue);
     };
 
+    useEffect(() => {
+        if (typeof window != 'undefined') {
+          if (!localStorage.getItem('token')) {
+            window.location.href = '/login'
+          } else {  
+              const data = jwt(localStorage.getItem('token'))
+              
+              fetch(`http://localhost:5000/client/${data.id}`)
+              .then(res => res.json())
+              .then(json => {
+                ClientStore.setUserData(json)
+                console.log(json)
+
+              fetch(`http://localhost:5000/receipt?client_id=${data?.id}`)
+              .then(res => res.json())
+              .then(receipts => {
+                setReceipts(receipts)
+              })
+
+              })
+
+          }
+        }
+
+        
+    }, [ClientStore.isAuth])
+
 
   return (
     <div>
-        <Header/>
+        <Header user={userData}/>
         <main>
             <div className={styles.container} >
-                
+                <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+                  
                 <h1 style={{color: '#555', marginBottom: 10, marginTop: 20 }}>Личный кабинет</h1>
+                <Button color="error" variant="outlined" onClick={e => {ClientStore.logout()}}>Выйти</Button>
+                </Box>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Главная"  />
@@ -69,10 +104,10 @@ export default function LK({receipts}) {
                 </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    <h2 style={{marginTop: 14 }}>ХОЛОДКОВА ЮЛИЯ МИХАЙЛОВНА</h2>
-                    <h3 style={{marginTop: 14 }}>ИНН 365200092646</h3>
-                    <h3>ОГРНИП 304365211200042</h3>
-                    <h3>Система УСН</h3>
+                    <h2 style={{marginTop: 14 }}>{ClientStore?.client?.sur_name} {ClientStore?.client?.first_name} {ClientStore?.client?.last_name}</h2>
+                    <h3 style={{marginTop: 14 }}>ИНН {ClientStore?.client?.inn}</h3>
+                    <h3>ОГРНИП {ClientStore?.client?.ogrnip}</h3>
+                    <h3>Система {ClientStore?.client?.tax_system}</h3>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                   
@@ -190,18 +225,27 @@ export default function LK({receipts}) {
     </div>
   )
 }
+)
+
+export default LK
+
+// export async function getServerSideProps({req}) {
+
+  
+//     // serverconst data = jwt(localStorage.getItem('token'))
+//     let data 
+//     if (typeof window != 'undefined') {
+//       data = jwt(localStorage.getItem('token'))
+//     }
+
+//     const res = await fetch(`http://localhost:5000/receipt?client_id=${data?.id}`)
+
+//     const json = await res.json()
 
 
-export async function getServerSideProps() {
-
-  const res = await fetch(`http://localhost:5000/receipt`)
-
-  const json = await res.json()
-
-  return {
-    props: {
-      receipts: json
-    }
-  }
-
-}
+//     return {
+//       props: {
+//         receipts: json
+//       }
+//     }
+//   } 

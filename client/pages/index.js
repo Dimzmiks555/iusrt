@@ -150,8 +150,7 @@ export default function Home() {
                           <li><i>•</i> Всё прочее</li>
                         </ul>
                     </div>
-                    
-                    <a href='#tears'><button className={styles.main_button}>Войти в личный кабинет</button></a>
+                    <Link href='/login'><a href='#tears'><button className={styles.main_button}>Войти в личный кабинет</button></a></Link>
                     
                 </div>
                 <div className={styles.main_img}>

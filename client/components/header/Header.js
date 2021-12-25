@@ -1,8 +1,33 @@
 
 import styles from './Header.module.css'
 import Link from 'next/link'
+import ClientStore from '../stores/ClientStore'
+import jwtDecode from 'jwt-decode'
+import { useEffect } from 'react'
+import {observer} from 'mobx-react'
 
-export default function Header() {
+const Header = observer(({user}) => {
+
+  useEffect(() => {
+    if (typeof window != 'undefined') {
+      if (!localStorage.getItem('token')) {
+      } else {  
+          const data = jwtDecode(localStorage.getItem('token'))
+          
+          fetch(`http://localhost:5000/client/${data.id}`)
+          .then(res => res.json())
+          .then(json => {
+            ClientStore.setUserData(json)
+            console.log(json)
+          })
+
+        }
+      }
+
+      
+  }, [ClientStore.isAuth])
+
+
     return (
         <>
         <header>
@@ -44,10 +69,13 @@ export default function Header() {
                   <li><a href='/#services'>Услуги</a></li>
                   <li><a href='/#contacts'>Контакты</a></li>
                   <li><a href='/#partners'>Партнеры</a></li>
-                  <Link href='/login'><li><a><b>Личный кабинет</b></a></li></Link>
+                  {ClientStore.client?.id ? <Link href='/lk'><li><a><b>{ClientStore.client?.id ? ClientStore.client?.sur_name + ' ' + ClientStore.client?.first_name : 'Личный кабинет'}</b></a></li></Link> : <Link href='/login'><li><a><b>Личный кабинет</b></a></li></Link>}
+                  
                 </ul>
             </div>
         </div>
         </>
     )
-}
+})
+
+export default Header

@@ -23,6 +23,9 @@ export class Client extends Model{
     ogrnip: string;
 
     @Column({type: DataType.STRING})
+    password: string;
+
+    @Column({type: DataType.STRING})
     tax_system: string;
 
     @Column({type: DataType.STRING})

@@ -10,6 +10,7 @@ import { Client } from './client/entities/client.entity';
 import { Receipt } from './receipt/entities/receipt.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import { join } from 'path';
     ClientModule, 
     ReceiptModule, 
     PaymentModule, 
-    ReportModule
+    ReportModule, AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

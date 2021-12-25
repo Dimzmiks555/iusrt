@@ -12,8 +12,31 @@ import ProcessIcon from './icons/process'
 import ReportIcon from './icons/report'
 import TaxIcon from './icons/tax'
 import TextField from '@mui/material/TextField';
+import { useEffect, useState } from 'react'
+import ClientStore from '../components/stores/ClientStore'
 
 export default function Home() {
+
+  const [inn, setInn] = useState()
+  const [password, setPassword] = useState()
+
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    ClientStore.login({inn, password})
+
+  }
+
+  useEffect(() => {
+    if (typeof window != 'undefined') {
+      if (localStorage.getItem('token')) {
+        window.location.href ="/lk"
+      } 
+      }
+
+      
+  }, [ClientStore.isAuth])
+
   return (
     <div>
         <Header/>
@@ -23,9 +46,9 @@ export default function Home() {
                     <div className={styles.sign_in}>
                         <h2>Войти</h2>
                         <form>
-                          <TextField label="Номер телефона" sx={{width: 300, mb: 4}} ></TextField>
-                          <TextField label="Пароль" sx={{width: 300, mb: 4}}></TextField>
-                            <button>Войти</button>
+                          <TextField label="ИНН" onChange={e => {setInn(e.target.value)}} sx={{width: 300, mb: 4}} ></TextField>
+                          <TextField label="Пароль" onChange={e => {setPassword(e.target.value)}} type="password" sx={{width: 300, mb: 4}}></TextField>
+                            <button onClick={handleSubmit}>Войти</button>
                         </form>
                     </div>
                     <div className={styles.registration}>

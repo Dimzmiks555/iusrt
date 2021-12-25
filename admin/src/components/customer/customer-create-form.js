@@ -95,8 +95,8 @@ export const CustomerCreateForm = ({ ...rest }) => {
                     <Box sx={{mb: 2}}>
                         <h2>Основная информация</h2>
                         <Box sx={{mt:2}}>
-                            <TextField label="Имя" {...register("first_name")} sx={{mr: 2}}></TextField>
                             <TextField label="Фамилия" {...register("sur_name")} sx={{mr: 2}}></TextField>
+                            <TextField label="Имя" {...register("first_name")} sx={{mr: 2}}></TextField>
                             <TextField label="Отчество" {...register("last_name")} sx={{mr: 2}}></TextField>
                             <TextField label="Номер телефона" {...register("phone")} type="tel" sx={{mr: 2}}></TextField>
                             <TextField label="Электронная почта" {...register("email")} type="email" sx={{mr: 2}}></TextField>
@@ -109,6 +109,7 @@ export const CustomerCreateForm = ({ ...rest }) => {
                             <TextField label="ОГРНИП" {...register("ogrnip")} sx={{mr: 2}}></TextField>
                             <TextField label="Система налогообложения" {...register("tax_system")} sx={{mr: 2}}></TextField>
                             <TextField label="СНИЛС" type="tel" {...register("social_account_number")} sx={{mr: 2}}></TextField>
+                            <TextField label="Пароль"  {...register("password")} sx={{mr: 2}}></TextField>
                         </Box>
                     </Box>
                     <Box>

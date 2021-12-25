@@ -12,6 +12,8 @@ export class ClientController {
     return this.clientService.create(createClientDto);
   }
 
+  
+
   @Get()
   findAll() {
     return this.clientService.findAll();

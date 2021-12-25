@@ -16,11 +16,19 @@ export class ReceiptService {
     return receipt
   }
 
-  findAll() {
+  findAll(query) {
+
+    const {client_id} = query
+
+    let options: any = {}
+
+    if (client_id) {options.client_id = client_id}
+
     const receipt = Receipt.findAndCountAll({
       include: [
         {model: Client}
-      ]
+      ],
+      where: options
     })
     return receipt
   }

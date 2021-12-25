@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, Query, Req } from '@nestjs/common';
 import { ReceiptService } from './receipt.service';
 import { CreateReceiptDto } from './dto/create-receipt.dto';
 import { UpdateReceiptDto } from './dto/update-receipt.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { Request } from 'express';
 
 @Controller('receipt')
 export class ReceiptController {
@@ -31,8 +32,8 @@ export class ReceiptController {
   }
 
   @Get()
-  findAll() {
-    return this.receiptService.findAll();
+  findAll(@Query() query) {
+    return this.receiptService.findAll(query);
   }
 
   @Get(':id')
