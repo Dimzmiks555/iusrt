@@ -1,0 +1,21 @@
+.error_chip {
+    background: #FF0606;
+    border-radius: 7px;
+    padding: 3px 10px;
+    color: #fff;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.subtitle {
+    color: #8B00FF;
+    margin-bottom: 10px;
+}
+.summ {
+    font-size: 32px;
+    text-align: right;
+}
+
+.download_link {
+    margin-right: 10px;
+}

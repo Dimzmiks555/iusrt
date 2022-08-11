@@ -5,8 +5,11 @@ import ClientStore from '../stores/ClientStore'
 import jwtDecode from 'jwt-decode'
 import { useEffect } from 'react'
 import {observer} from 'mobx-react'
+import { useRouter } from "next/router";
 
-const Header = observer(({user}) => {
+const LKHeader = observer(({user}) => {
+
+    const router = useRouter();
 
   useEffect(() => {
     if (typeof window != 'undefined') {
@@ -66,11 +69,12 @@ const Header = observer(({user}) => {
         <div className={styles.subheader}>
             <div className="container">
                 <ul>
-                  <li><a href='/#services'>Услуги</a></li>
-                  <li><a href='/#contacts'>Контакты</a></li>
-                  <li><a href='/#partners'>Партнеры</a></li>
-                  {ClientStore.client?.id ? <Link href='/lk'><li><a><b>{ClientStore.client?.id ? ClientStore.client?.sur_name + ' ' + ClientStore.client?.first_name : 'Личный кабинет'}</b></a></li></Link> : <Link href='/login'><li><a><b>Личный кабинет</b></a></li></Link>}
-                  
+                    <Link href='/lk'><li><a className={router.pathname == "/lk" ? "active_link" : ""}>Личный кабинет</a></li></Link>
+                    <Link href='/lk/receipts'><li><a  className={router.pathname == "/lk/receipts" ? "active_link" : ""}>Квитанции</a></li></Link>
+                    <Link href='/lk/services'><li><a className={router.pathname == "/lk/services" ? "active_link" : ""}>Услуги</a></li></Link>
+                    {ClientStore.client?.id ? <Link href='/lk'><li><a><b>{ClientStore.client?.id ? ClientStore.client?.sur_name + ' ' + ClientStore.client?.first_name : 'Личный кабинет'}</b></a><a className={styles.logout_button} onClick={e => {ClientStore.logout()}}>Выйти</a></li></Link> : <Link href='/login'><li><a><b>Личный кабинет</b></a></li></Link>}
+                    
+                    
                 </ul>
             </div>
         </div>
@@ -78,4 +82,4 @@ const Header = observer(({user}) => {
     )
 })
 
-export default Header
+export default LKHeader

@@ -1,0 +1,31 @@
+
+.map {
+    display: flex;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px #ecf;
+    overflow: hidden;
+}
+.contacts_info {
+margin-top: 40px;
+display: flex;
+margin-bottom: 80px;
+}
+.contacts_info img {
+width: 40%;
+height: auto;
+margin-right: 40px;
+}
+.contacts_info h2 {
+margin-bottom: 20px;
+font-size: 32px;
+}
+.contacts_info h3 {
+font-size: 24px;
+margin-bottom: 10px;
+}
+
+.contacts_info p {
+font-size: 18px;
+margin-bottom: 20px;
+}

@@ -46,3 +46,59 @@ footer {
 svg, img, button {
   user-select: none;
 }
+
+.container {
+  width: 1024px;
+  margin: 0 auto;
+  /* background: #eee; */
+  min-height: 10px;
+}
+
+.tears {
+  width: 100%;
+}
+
+.tears h1 {
+  font-size: 32px;
+  /* border-left: 6px solid #8b00ff; */
+  /* padding: 10px 20px; */
+  padding: 10px 0px;
+}
+
+main {
+  min-height: 80vh;
+}
+
+.action_button {
+  cursor: pointer;
+  background: #8b00ff;
+  border: 2px solid #8b00ff;
+  padding: 6px 24px;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.action_button:hover {
+  background: #af00ff;
+}
+
+.secondary_button {
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid #ddd;
+  padding: 6px 24px;
+  color: #555;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.secondary_button:hover {
+  background: #eee;
+}
+
+.active_link {
+  color: #8b00ff;
+  padding: 0 10px 4px;
+  font-weight: bold;
+  border-bottom: 2px solid #8b00ff;
+}
+

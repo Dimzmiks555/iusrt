@@ -1,0 +1,54 @@
+
+.main_block {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.client_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    width: 48%;
+    margin-right: 2%;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    padding: 30px 40px;
+    background: linear-gradient(257.09deg, #8B00FF 0%, #CE00BA 100%);
+}
+
+.default_card {
+    color: #333;
+    width: 48%;
+    margin-right: 2%;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    padding: 30px 40px;
+    border: 2px solid #E6E6E6;
+}
+
+.payment_blocks {
+    display: flex;
+    margin-top: 10px;
+}
+.payment_blocks > div {
+    width: 48%;
+    margin-right: 20px;
+}
+
+.payment_blocks span {
+    font-size: 32px;
+
+    color: #e00
+}
+.payment_blocks p {
+    margin-bottom: 10px;
+}
+.my_documents {
+    margin-top: 10px;
+}
+.my_documents > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

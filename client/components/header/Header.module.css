@@ -44,3 +44,16 @@ margin-right: 0px;
 height: 100px;
 width: auto;
 }
+
+.logout_button {
+    margin-left: 10px;
+    border: 2px solid #8b00ff;
+    padding: 6px 24px;
+    color: #8b00ff;
+    border-radius: 8px;
+}
+
+.logout_button:hover {
+    background: #8b00ff;
+    color: #fff !important;
+}
