@@ -11,6 +11,8 @@ import { Box, Chip } from '@mui/material';
 import { Document, Outline, Page } from 'react-pdf'
 import { pdfjs } from 'react-pdf';
 import styles from './ReceiptsItem.module.css'
+import { AttachModal } from './AttachModal';
+import { DownloadModal } from './DownloadModal';
 
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
@@ -19,6 +21,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 export function ReceiptsItem({receipt}) {
 
     const [open, setOpen] = useState(false);
+    const [openAttach, setOpenAttach] = useState(false);
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -28,8 +31,17 @@ export function ReceiptsItem({receipt}) {
       setOpen(false);
     };
 
+
+    const handleClickOpenAttach = () => {
+        setOpenAttach(true);
+    };
+  
+    const handleCloseAttach = () => {
+        setOpenAttach(false);
+    };
+
     return (
-        <Box sx={{p:3, border: '2px solid #eee', borderRadius: '20px', display: 'flex', justifyContent: 'space-between', mb: 2}}>
+        <Box className={styles.receipt} sx={{p:3, border: '2px solid #eee', borderRadius: '20px', display: 'flex', justifyContent: 'space-between', mb: 2}}>
             <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
                 <Box>
                     <h3>Пакет квитанций № {receipt?.id} <span className={styles.error_chip} >Требуется оплата</span></h3>
@@ -37,22 +49,13 @@ export function ReceiptsItem({receipt}) {
                 
                 <h4 className={styles.subtitle}>Работники</h4>
                 <Box sx={{display: 'flex'}}>
-                    <a onClick={handleClickOpen} className={styles.download_link}  download target="_blank"><button className='action_button'>Скачать</button></a>
-                    <button className='secondary_button' >Прикрепить</button>
+                    <a onClick={handleClickOpen} className={styles.download_link}  download target="_blank"><button className='action_button'>Скачать <span>{receipt?.files?.length}</span></button></a>
+                    <a className={styles.attach_link}><button onClick={handleClickOpenAttach} className='secondary_button' >{receipt?.confirmation_documents?.length ? <>Прикреплено<span>{receipt?.confirmation_documents?.length}</span></> : 'Прикрепить'}</button></a>
                 </Box>
             </Box>
             <Box>
-            <Dialog open={open} onClose={handleClose} maxWidth='lg' scroll="body">
-                <DialogTitle>Квитанция № {receipt.id}</DialogTitle>
-                <DialogContent>
-                    {/* <Document file={`http://localhost:5000/${receipt.src}`}>
-                        <Page pageNumber={1} width={1000}></Page>
-                    </Document> */}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Закрыть</Button>
-                </DialogActions>
-            </Dialog>
+            <DownloadModal receipt={receipt} open={open} handleClose={handleClose}></DownloadModal>
+            <AttachModal receipt={receipt} open={openAttach} handleClose={handleCloseAttach}></AttachModal>
             </Box>
             <Box sx={{textAlign: 'right'}}>
                 <p>{new Date(receipt?.createdAt)?.toLocaleDateString()}</p>

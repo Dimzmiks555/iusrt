@@ -67,38 +67,43 @@ const LK = observer( ({ client}) => {
             <h1 style={{color: '#555', marginBottom: 30, marginTop: 20 }}>Личный кабинет</h1>
           </Box>
           <Box className={styles.main_block}>
-            <Box className={styles.client_card}>
-              <h2 >{ClientStore?.client?.sur_name} {ClientStore?.client?.first_name} {ClientStore?.client?.last_name}</h2>
-              <p style={{marginTop: 14 }}>ИНН {ClientStore?.client?.inn}</p>
-              <p>ОГРНИП {ClientStore?.client?.ogrnip}</p>
-              <p>Система налогообложения {ClientStore?.client?.tax_system}</p>
+            <Box>
+              <Box className={styles.client_card}>
+                <h2 >{ClientStore?.client?.sur_name} {ClientStore?.client?.first_name} {ClientStore?.client?.last_name}</h2>
+                <p style={{marginTop: 14 }}>ИНН {ClientStore?.client?.inn}</p>
+                <p>ОГРНИП {ClientStore?.client?.ogrnip}</p>
+                <p>Система налогообложения {ClientStore?.client?.tax_system}</p>
+              </Box>
             </Box>
-            <Box className={styles.default_card}>
-              <h2 >Требуется оплата</h2>
-              <Box className={styles.payment_blocks}>
-                <Box>
-                  <h3>Бухгалтеру</h3>
-                  <span>500,00₽</span>
-                  <p>по 1 пакету услуг</p>
-                  <Link href="/lk/services"><button className='action_button'>Подробнее</button></Link>
+            <Box>
+              <Box className={styles.default_card}>
+                <h2 >Требуется оплата</h2>
+                <Box className={styles.payment_blocks}>
+                  <Box>
+                    <h3>Бухгалтеру</h3>
+                    <span>500,00₽</span>
+                    <p>по 1 пакету услуг</p>
+                    <Link href="/lk/services"><button className='action_button'>Подробнее</button></Link>
+                  </Box>
+                  <Box>
+                    <h3>Государству</h3>
+                    <span>500,00₽</span>
+                    <p>по 1 пакету услуг</p>
+                    <Link href="/lk/receipts"><button className='action_button'>Подробнее</button></Link>
+                  </Box>
                 </Box>
-                <Box>
-                  <h3>Государству</h3>
-                  <span>500,00₽</span>
-                  <p>по 1 пакету услуг</p>
-                  <Link href="/lk/receipts"><button className='action_button'>Подробнее</button></Link>
+              </Box>
+              <Box className={styles.default_card}>
+                <h2 >Мои документы</h2>
+                <Box className={styles.my_documents}>
+                  <Box >
+                    <p>Копия ИНН</p>
+                    <button className='action_button'>Скачать</button>
+                  </Box>
                 </Box>
               </Box>
             </Box>
-            <Box className={styles.default_card}>
-              <h2 >Мои документы</h2>
-              <Box className={styles.my_documents}>
-                <Box >
-                  <p>Копия ИНН</p>
-                  <button className='action_button'>Скачать</button>
-                </Box>
-              </Box>
-            </Box>
+            
           </Box>
           
       </div>

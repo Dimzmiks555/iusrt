@@ -1,5 +1,7 @@
-import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
+import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, HasMany, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
 import { Client } from "src/client/entities/client.entity";
+import { ConfirmationDocument } from "src/confirmation-document/entities/confirmation-document.entity";
+import { File } from "src/file/entities/file.entity";
 
 @Table({tableName: 'receipts'})
 export class Receipt extends Model{
@@ -22,6 +24,12 @@ export class Receipt extends Model{
 
     @BelongsTo(() => Client)
     client: Client;
+
+    @HasMany(() => File, 'receipt_id')
+    files: Array<File>
+
+    @HasMany(() => ConfirmationDocument, 'receipt_id')
+    confirmation_documents: Array<ConfirmationDocument>
 
     
 }

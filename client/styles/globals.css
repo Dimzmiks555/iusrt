@@ -82,6 +82,13 @@ main {
   background: #af00ff;
 }
 
+.action_button:disabled {
+  cursor: not-allowed;
+  color: #a53ff8;
+  border: none;
+  background: #f0d3f5;
+}
+
 .secondary_button {
   cursor: pointer;
   background: #fff;

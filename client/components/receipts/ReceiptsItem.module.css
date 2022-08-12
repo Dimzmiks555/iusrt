@@ -19,3 +19,73 @@
 .download_link {
     margin-right: 10px;
 }
+
+.fileWrapper svg {
+    height: 100px;
+    margin-bottom: 20px;
+    width: auto;
+}
+.fileWrapper p {
+    margin-bottom: 10px;
+}
+.fileWrapper a {
+    margin-top: auto;
+}
+
+.receipt .download_link span{
+    margin-left: 10px;
+    display: inline-flex;
+    color: #333;
+    align-items: center;
+    font-size: 14px;
+    height: 23px;
+    width: 23px;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    background: #fff !important;
+}
+
+.receipt .attach_link span{
+    margin-left: 10px;
+    display: inline-flex;
+    color: #333;
+    align-items: center;
+    font-size: 14px;
+    height: 23px;
+    width: 23px;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    background: #fff !important;
+}
+
+.uploadFileButton {
+    border: none;
+}
+
+.attachedFile {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.attachedFileClose {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    height: 100%;
+    background: #fff;
+    border-radius: 10px;
+}
+.attachedFileClose:hover {
+    background: #eee;
+}

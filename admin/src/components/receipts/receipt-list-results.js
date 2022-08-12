@@ -17,6 +17,7 @@ import {
   Chip
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
+import Link from 'next/link';
 
 export const ReceiptListResults = ({ receipts, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -93,6 +94,12 @@ export const ReceiptListResults = ({ receipts, ...rest }) => {
                   Статус
                 </TableCell>
                 <TableCell>
+                  Квитанций
+                </TableCell>
+                <TableCell>
+                  Чеков
+                </TableCell>
+                <TableCell>
                   Дата
                 </TableCell>
               </TableRow>
@@ -123,7 +130,7 @@ export const ReceiptListResults = ({ receipts, ...rest }) => {
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.id}
+                        <Link href={`/receipts/${customer.id}`}><a>Пакет квитанций № {customer.id}</a></Link>
                       </Typography>
                     </Box>
                   </TableCell>
@@ -141,6 +148,12 @@ export const ReceiptListResults = ({ receipts, ...rest }) => {
                         <Chip color="success" label="Оплачено"></Chip>
                       )
                     }
+                  </TableCell>
+                  <TableCell>
+                    {customer.files?.length} квитанций
+                  </TableCell>
+                  <TableCell>
+                    {customer?.confirmation_documents?.length} плат. документов
                   </TableCell>
                   <TableCell>
                     {new Date(customer.createdAt)?.toLocaleDateString()}

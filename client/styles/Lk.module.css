@@ -2,6 +2,11 @@
 .main_block {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.main_block > div {
+    width: 49%;
 }
 
 .client_card {
@@ -9,7 +14,7 @@
     flex-direction: column;
     justify-content: center;
     color: #fff;
-    width: 48%;
+    width: 100%;
     margin-right: 2%;
     margin-bottom: 20px;
     border-radius: 25px;
@@ -19,7 +24,7 @@
 
 .default_card {
     color: #333;
-    width: 48%;
+    width: 100%;
     margin-right: 2%;
     margin-bottom: 20px;
     border-radius: 25px;

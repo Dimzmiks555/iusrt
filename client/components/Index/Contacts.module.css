@@ -3,7 +3,8 @@
     display: flex;
     margin-bottom: 40px;
     border-radius: 20px;
-    box-shadow: 0 10px 20px #ecf;
+    /* box-shadow: 0 10px 20px #ecf; */
+    border: 2px solid #eee;
     overflow: hidden;
 }
 .contacts_info {

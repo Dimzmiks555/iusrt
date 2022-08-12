@@ -1,18 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { Client } from 'src/client/entities/client.entity';
+import { ConfirmationDocument } from 'src/confirmation-document/entities/confirmation-document.entity';
+import { CreateFileDto } from 'src/file/dto/create-file.dto';
+import { File } from 'src/file/entities/file.entity';
+import { FileService } from 'src/file/file.service';
 import { CreateReceiptDto } from './dto/create-receipt.dto';
 import { UpdateReceiptDto } from './dto/update-receipt.dto';
 import { Receipt } from './entities/receipt.entity';
 
 @Injectable()
 export class ReceiptService {
-  create(createReceiptDto, file) {
-    const receipt = Receipt.create({
+
+  constructor(
+    private fileService: FileService
+  ){}
+
+
+
+  async create(createReceiptDto, files: Array<Express.Multer.File>) {
+    const receipt = await Receipt.create({
       client_id: createReceiptDto.client_id,
-      src: file.filename,
       summ: createReceiptDto.summ,
 
     })
+
+    console.log(files)
+
+    files.forEach(file => {
+      
+      let file_data: CreateFileDto = {
+        name: file.filename,
+        receipt_id: receipt?.id
+      }
+
+      this.fileService.create(file_data)
+    })
+
+
+
+
     return receipt
   }
 
@@ -26,15 +52,25 @@ export class ReceiptService {
 
     const receipt = Receipt.findAndCountAll({
       include: [
-        {model: Client}
+        {model: Client},
+        {model: File},
+        {model: ConfirmationDocument}
       ],
+      order: [['id', 'DESC']],
       where: options
     })
     return receipt
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} receipt`;
+    return Receipt.findOne({
+      where: {id},
+      include: [
+        {model: Client},
+        {model: File},
+        {model: ConfirmationDocument}
+      ]
+    });
   }
 
   update(id: number, updateReceiptDto: UpdateReceiptDto) {

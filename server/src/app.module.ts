@@ -11,6 +11,10 @@ import { Receipt } from './receipt/entities/receipt.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { FileModule } from './file/file.module';
+import { File } from './file/entities/file.entity';
+import { ConfirmationDocumentModule } from './confirmation-document/confirmation-document.module';
+import { ConfirmationDocument } from './confirmation-document/entities/confirmation-document.entity';
 
 @Module({
   imports: [
@@ -21,7 +25,7 @@ import { AuthModule } from './auth/auth.module';
       username: 'root',
       password: 'root',
       database: 'accounting',
-      models: [Client, Receipt],
+      models: [Client, Receipt, File, ConfirmationDocument],
       synchronize: true,
       autoLoadModels: true,
       sync: {alter: true}
@@ -32,7 +36,7 @@ import { AuthModule } from './auth/auth.module';
     ClientModule, 
     ReceiptModule, 
     PaymentModule, 
-    ReportModule, AuthModule
+    ReportModule, AuthModule, FileModule, ConfirmationDocumentModule
   ],
   controllers: [AppController],
   providers: [AppService],
