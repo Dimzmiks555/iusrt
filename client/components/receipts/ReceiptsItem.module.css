@@ -1,5 +1,21 @@
 .error_chip {
-    background: #FF0606;
+    background: #DD0606;
+    border-radius: 7px;
+    padding: 3px 10px;
+    color: #fff;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.default_chip {
+    background: #DDD;
+    border-radius: 7px;
+    padding: 3px 10px;
+    color: #333;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.success_chip {
+    background: #06CC06;
     border-radius: 7px;
     padding: 3px 10px;
     color: #fff;

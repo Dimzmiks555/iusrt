@@ -44,7 +44,13 @@ export function ReceiptsItem({receipt}) {
         <Box className={styles.receipt} sx={{p:3, border: '2px solid #eee', borderRadius: '20px', display: 'flex', justifyContent: 'space-between', mb: 2}}>
             <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
                 <Box>
-                    <h3>Пакет квитанций № {receipt?.id} <span className={styles.error_chip} >Требуется оплата</span></h3>
+                    <h3>Пакет квитанций № {receipt?.id} 
+                    {receipt?.status == 'need_payment' ? 
+                    <span className={styles.error_chip} >Требуется оплата</span> :
+                    receipt?.status == 'success' ?
+                    <span className={styles.success_chip} >Оплачено</span> :
+                    <span className={styles.default_chip} >Отменен</span> }
+                    </h3>
                 </Box>
                 
                 <h4 className={styles.subtitle}>Работники</h4>

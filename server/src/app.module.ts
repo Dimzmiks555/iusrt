@@ -15,6 +15,9 @@ import { FileModule } from './file/file.module';
 import { File } from './file/entities/file.entity';
 import { ConfirmationDocumentModule } from './confirmation-document/confirmation-document.module';
 import { ConfirmationDocument } from './confirmation-document/entities/confirmation-document.entity';
+import { ServiceModule } from './service/service.module';
+import { ClientFileModule } from './client-file/client-file.module';
+import { ClientFile } from './client-file/entities/client-file.entity';
 
 @Module({
   imports: [
@@ -25,7 +28,7 @@ import { ConfirmationDocument } from './confirmation-document/entities/confirmat
       username: 'root',
       password: 'root',
       database: 'accounting',
-      models: [Client, Receipt, File, ConfirmationDocument],
+      models: [Client, Receipt, File, ConfirmationDocument, ClientFile],
       synchronize: true,
       autoLoadModels: true,
       sync: {alter: true}
@@ -36,7 +39,7 @@ import { ConfirmationDocument } from './confirmation-document/entities/confirmat
     ClientModule, 
     ReceiptModule, 
     PaymentModule, 
-    ReportModule, AuthModule, FileModule, ConfirmationDocumentModule
+    ReportModule, AuthModule, FileModule, ConfirmationDocumentModule, ServiceModule, ClientFileModule
   ],
   controllers: [AppController],
   providers: [AppService],

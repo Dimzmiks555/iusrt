@@ -74,7 +74,9 @@ export class ReceiptService {
   }
 
   update(id: number, updateReceiptDto: UpdateReceiptDto) {
-    return `This action updates a #${id} receipt`;
+    return Receipt.update(updateReceiptDto, {
+      where: {id}
+    });
   }
 
   remove(id: number) {

@@ -14,6 +14,10 @@ import {
   Button,
   Card,
   Checkbox,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   Table,
   TableBody,
   TableCell,
@@ -82,6 +86,32 @@ export const ReceiptEditForm = ({data, clients, ...rest }) => {
     const [files, setFiles] = useState([]);
     const [clientID, setClientID] = useState(null);
     const router = useRouter()
+
+    const [status, setStatus] = useState(data.status);
+
+    const handleChangeStatus = (event) => {
+        setStatus(event.target.value);
+
+        fetch(`http://localhost:5000/receipt/${router.query.id}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify( {status: event.target.value})
+            }
+        )
+        .then(res => {
+            res.json()
+        })
+        .then(json => {
+            console.log(json)
+            // router.push('/receipts')
+        })
+
+
+    };
 
 
     const {getRootProps, getInputProps} = useDropzone({
@@ -194,16 +224,30 @@ export const ReceiptEditForm = ({data, clients, ...rest }) => {
                              */}
                             
                             <h3>Сумма: {data?.summ} рублей</h3>
+                            <FormControl fullWidth sx={{mt: 2}}>
+                                <InputLabel id="demo-simple-select-label">Статус</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={status}
+                                    label="Статус"
+                                    onChange={handleChangeStatus}
+                                >
+                                <MenuItem value={'need_payment'}>🔴 Требуется оплата</MenuItem>
+                                <MenuItem value={'success'}>🟢 Оплачено</MenuItem>
+                                <MenuItem value={'canceled'}>⚫ Отменен</MenuItem>
+                                </Select>
+                            </FormControl>
 
                             
-                            <Button
+                            {/* <Button
                                 color="primary"
                                 variant="contained"
                                 type="submit"
                                 sx={{mt: 4}}
                             >
                                 Сохранить
-                            </Button>
+                            </Button> */}
                         </Box>
                     </Box>
                     

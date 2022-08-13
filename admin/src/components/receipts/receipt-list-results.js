@@ -144,8 +144,10 @@ export const ReceiptListResults = ({ receipts, ...rest }) => {
                     {
                       customer.status == 'need_payment' ? (
                         <Chip color="error" label="Не оплачено"></Chip>
-                      ) : (
+                      ) : customer.status == 'success' ? (
                         <Chip color="success" label="Оплачено"></Chip>
+                      ) : (
+                        <Chip color="default" label="Отменен"></Chip>
                       )
                     }
                   </TableCell>

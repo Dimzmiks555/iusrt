@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -23,10 +23,81 @@ import {
   Typography
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
+import { useDropzone } from 'react-dropzone';
+
+const thumbsContainer = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 16
+  };
+  
+  const thumb = {
+    display: 'inline-flex',
+    borderRadius: 2,
+    border: '1px solid #eaeaea',
+    marginBottom: 8,
+    marginRight: 8,
+    width: '47%',
+    height: 'auto',
+    wordWrap: 'break-word',
+    padding: 10,
+    boxSizing: 'border-box'
+  };
+  
+  const thumbInner = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+
+
+  };
+  
+  const img = {
+    display: 'block',
+
+    width: 'auto',
+    height: 100,
+    marginBottom: 10
+  };
+
 
 export const CustomerPage = ({ data }) => {
 
+    
+    const [files, setFiles] = useState([]);
+
+    const {getRootProps, getInputProps} = useDropzone({
+        accept: 'application/pdf',
+      onDrop: acceptedFiles => {
+          
+        let reader = new FileReader()
+        reader.readAsText(acceptedFiles[0]);
+        setFiles(acceptedFiles.map(file => Object.assign(file, {
+          preview: URL.createObjectURL(file)
+        })));
+      }
+    });
+    
+    const thumbs = files.map(file => (
+      <div style={thumb} key={file.name}>
+        <div style={thumbInner}>
+          <img style={img} src="/pdf_icon.png"></img>
+          <p style={{wordBreak: 'break-word'}}>{file.name}</p>
+        </div>
+      </div>
+    ));
+  
+    useEffect(() => () => {
+      // Make sure to revoke the data uris to avoid memory leaks
+      files.forEach(file => URL.revokeObjectURL(file.preview));
+    }, [files]);
+
+
+
     const { register, handleSubmit } = useForm();
+
     const onSubmit = data => {
         console.log(data);
 
@@ -48,6 +119,33 @@ export const CustomerPage = ({ data }) => {
             router.push('/clients')
         })
 
+    }
+
+    const handleSubmitFiles = () => {
+        let formdata = new FormData();
+        
+        files.forEach(file => {
+            formdata.append('files', file)
+        })
+
+        formdata.append('client_id', clientID)
+        formdata.append('summ', data.summ)
+
+        
+
+        // fetch(`http://localhost:5000/client-file`,
+        //     {
+        //         method: 'POST',
+        //         body: formdata
+        //     }
+        // )
+        // .then(res => {
+        //     res.json()
+        // })
+        // .then(json => {
+        //     console.log(json)
+        //     router.push('/receipts')
+        // })
     }
 
     const router = useRouter()
@@ -134,6 +232,22 @@ export const CustomerPage = ({ data }) => {
                                     </tr>
                                 </table>
                             </Box>
+                        </Box>
+                        <Box sx={{ml:4, width: '25%'}} >
+                            <h2 style={{marginBottom: 20}}>Загрузка файлов</h2 >
+                            <section className="container">
+                                <div {...getRootProps({className: 'dropzone', style: {border: '2px dashed #ccc', padding: 20, height: 200, cursor: 'pointer'}})}>
+                                    <input {...getInputProps()} />
+                                    <p>Перебросьте сюда файлы для загрузки...</p>
+                                </div>
+                            </section>
+                            <aside style={thumbsContainer}>
+                                {thumbs}
+                            </aside>
+                            <Button onClick={handleSubmitFiles}></Button>
+                            {/* <Document file={files[0]?.preview}>
+                                <Page pageNumber={1}></Page>
+                            </Document> */}
                         </Box>
                     </Box>
                 </Box>
