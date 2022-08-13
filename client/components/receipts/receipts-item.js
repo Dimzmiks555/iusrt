@@ -65,7 +65,7 @@ export function ReceiptsItem({receipt}) {
             </Box>
             <Box sx={{textAlign: 'right'}}>
                 <p>{new Date(receipt?.createdAt)?.toLocaleDateString()}</p>
-                <h2 className={styles.summ}>{receipt?.summ?.toFixed(2)?.toLocaleString().replace('.', ',')}₽</h2>
+                <h2 className={styles.summ}>{receipt?.summ?.toLocaleString().replace('.', ',')}₽</h2>
             </Box>
         </Box>
     )

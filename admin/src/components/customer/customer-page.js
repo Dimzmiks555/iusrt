@@ -20,14 +20,18 @@ import {
   TableRow,
   TextField,
   Divider,
-  Typography
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 import { useDropzone } from 'react-dropzone';
 
 const thumbsContainer = {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexWrap: 'wrap',
     marginTop: 16
   };
@@ -38,7 +42,7 @@ const thumbsContainer = {
     border: '1px solid #eaeaea',
     marginBottom: 8,
     marginRight: 8,
-    width: '47%',
+    width: '100%',
     height: 'auto',
     wordWrap: 'break-word',
     padding: 10,
@@ -48,7 +52,7 @@ const thumbsContainer = {
   const thumbInner = {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    // alignItems: 'center',
     width: '100%',
 
 
@@ -62,32 +66,71 @@ const thumbsContainer = {
     marginBottom: 10
   };
 
+const Thumb = ({file, setFileNames}) => {
+
+
+
+    const [fileName, setFileName] = useState('');
+
+
+    const handleChange = (e) => {
+        setFileName(e.target.value)
+        setFileNames((prevState) => {
+            return [...prevState, {
+                filename: file.name,
+                name: e.target.value
+            }]
+        })
+    }
+
+    return (
+        <div style={thumb} key={file.name}>
+            <div style={thumbInner}>
+            {/* <img style={img} src="/pdf_icon.png"></img> */}
+                <p style={{wordBreak: 'break-word'}}>{file.name}</p>
+                <FormControl fullWidth sx={{mt: 2}}>
+                    <InputLabel id="demo-simple-select-label">Документ</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={fileName}
+                        label="Документ"
+                        onChange={handleChange}
+                    >
+                    <MenuItem value={'Карта партнера'}>Карта партнера</MenuItem>
+                    <MenuItem value={'Копия ИНН'}>Копия ИНН</MenuItem>
+                    <MenuItem value={'Копия ОГРН'}>Копия ОГРН</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
+        </div>
+    )
+}
+
 
 export const CustomerPage = ({ data }) => {
 
     
     const [files, setFiles] = useState([]);
+    const [fileNames, setFileNames] = useState([]);
+    
 
     const {getRootProps, getInputProps} = useDropzone({
-        accept: 'application/pdf',
+        // accept: 'application/pdf',
       onDrop: acceptedFiles => {
           
         let reader = new FileReader()
         reader.readAsText(acceptedFiles[0]);
-        setFiles(acceptedFiles.map(file => Object.assign(file, {
-          preview: URL.createObjectURL(file)
-        })));
+        setFiles(acceptedFiles);
       }
     });
     
     const thumbs = files.map(file => (
-      <div style={thumb} key={file.name}>
-        <div style={thumbInner}>
-          <img style={img} src="/pdf_icon.png"></img>
-          <p style={{wordBreak: 'break-word'}}>{file.name}</p>
-        </div>
-      </div>
+      <Thumb file={file} setFileNames={setFileNames}></Thumb>
     ));
+
+
+    
   
     useEffect(() => () => {
       // Make sure to revoke the data uris to avoid memory leaks
@@ -127,25 +170,24 @@ export const CustomerPage = ({ data }) => {
         files.forEach(file => {
             formdata.append('files', file)
         })
-
-        formdata.append('client_id', clientID)
-        formdata.append('summ', data.summ)
+        formdata.append('fileNames', JSON.stringify(fileNames))
+        formdata.append('client_id', router.query.id)
 
         
 
-        // fetch(`http://localhost:5000/client-file`,
-        //     {
-        //         method: 'POST',
-        //         body: formdata
-        //     }
-        // )
-        // .then(res => {
-        //     res.json()
-        // })
-        // .then(json => {
-        //     console.log(json)
-        //     router.push('/receipts')
-        // })
+        fetch(`http://localhost:5000/client-file`,
+            {
+                method: 'POST',
+                body: formdata
+            }
+        )
+        .then(res => {
+            res.json()
+        })
+        .then(json => {
+            console.log(json)
+            router.reload()
+        })
     }
 
     const router = useRouter()
@@ -244,10 +286,16 @@ export const CustomerPage = ({ data }) => {
                             <aside style={thumbsContainer}>
                                 {thumbs}
                             </aside>
-                            <Button onClick={handleSubmitFiles}></Button>
+                            <Button disabled={(fileNames.length != files.length) || files.length == 0} onClick={handleSubmitFiles} variant="contained">Отправить</Button>
                             {/* <Document file={files[0]?.preview}>
                                 <Page pageNumber={1}></Page>
                             </Document> */}
+                        </Box>
+                        <Box sx={{ml:4, width: '25%'}} >
+                            <h2 style={{marginBottom: 20}}>Документы</h2 >
+                            {data?.client_files?.map(client_file => (
+                                <ClientFile client_file={client_file}></ClientFile>
+                            ))}
                         </Box>
                     </Box>
                 </Box>
@@ -259,3 +307,37 @@ export const CustomerPage = ({ data }) => {
     );
 };
 
+export const ClientFile = ({client_file}) => {
+
+
+    const router = useRouter()
+
+    const handleClick = () => {
+        fetch(`http://localhost:5000/client-file/${client_file?.id}`,
+            {
+                method: 'DELETE'
+            }
+        )
+        .then(res => {
+            res.json()
+        })
+        .then(json => {
+            console.log(json)
+            router.reload()
+        })
+    }
+    
+
+    return (
+        <div style={thumb} key={client_file.name}>
+            <div style={thumbInner}>
+            {/* <img style={img} src="/pdf_icon.png"></img> */}
+                <a href={`http://localhost:5000/${client_file?.filename}`} target="_blank" style={{wordBreak: 'break-word'}}>{client_file.name}</a>
+                <Button onClick={handleClick} color="error" variant='outlined' sx={{width: 200, mt: 2}}>Удалить</Button>
+            </div>
+        </div>
+    )
+
+
+
+}

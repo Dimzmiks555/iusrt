@@ -18,6 +18,7 @@ import { ConfirmationDocument } from './confirmation-document/entities/confirmat
 import { ServiceModule } from './service/service.module';
 import { ClientFileModule } from './client-file/client-file.module';
 import { ClientFile } from './client-file/entities/client-file.entity';
+import { Service } from './service/entities/service.entity';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { ClientFile } from './client-file/entities/client-file.entity';
       username: 'root',
       password: 'root',
       database: 'accounting',
-      models: [Client, Receipt, File, ConfirmationDocument, ClientFile],
+      models: [Client, Receipt, File, ConfirmationDocument, ClientFile, Service],
       synchronize: true,
       autoLoadModels: true,
       sync: {alter: true}

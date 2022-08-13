@@ -1,5 +1,6 @@
-import { Column, ForeignKey, Model, Table } from "sequelize-typescript";
+import { Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { Receipt } from "src/receipt/entities/receipt.entity";
+import { Service } from "src/service/entities/service.entity";
 
 @Table
 export class File extends Model {
@@ -8,9 +9,11 @@ export class File extends Model {
     name: string;
 
     @ForeignKey(() => Receipt)
-    @Column
+    @Column({type: DataType.INTEGER})
     receipt_id: string
 
-
+    @ForeignKey(() => Service)
+    @Column
+    service_id: number
 
 }

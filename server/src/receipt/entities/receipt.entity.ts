@@ -16,7 +16,7 @@ export class Receipt extends Model{
     @Column({type: DataType.STRING})
     src: string;
 
-    @Column({type: DataType.INTEGER})
+    @Column({type: DataType.DECIMAL(10, 2)})
     summ: number;
     
     @Column({type: DataType.STRING, defaultValue: 'need_payment'})

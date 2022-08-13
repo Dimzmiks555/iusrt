@@ -1,4 +1,5 @@
 import { AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
+import { ClientFile } from "src/client-file/entities/client-file.entity";
 import { Receipt } from "src/receipt/entities/receipt.entity";
 
 @Table({tableName: 'clients'})
@@ -66,4 +67,7 @@ export class Client extends Model{
 
     @HasMany(() => Receipt)
     receipts: Receipt[]
+
+    @HasMany(() => ClientFile)
+    client_files: ClientFile[]
 }

@@ -1,11 +1,45 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { CreateClientFileDto } from './dto/create-client-file.dto';
 import { UpdateClientFileDto } from './dto/update-client-file.dto';
+import { ClientFile } from './entities/client-file.entity';
 
 @Injectable()
 export class ClientFileService {
-  create(createClientFileDto: CreateClientFileDto) {
-    return 'This action adds a new clientFile';
+
+  constructor(
+    @InjectModel(ClientFile)
+    private clientModel: typeof ClientFile
+  ){}
+
+
+  create(createClientFileDto: CreateClientFileDto, files: Array<Express.Multer.File>) {
+
+    
+
+    console.log(createClientFileDto.fileNames)
+
+
+
+    files.forEach((file: Express.Multer.File) => {
+
+      createClientFileDto.fileNames = JSON.parse(createClientFileDto.fileNames)
+      
+
+
+      let clientfile_data = {
+        name: createClientFileDto.fileNames.find(item => file?.filename.search(item.filename) !== -1)?.name,
+        filename: file.filename,
+        client_id: createClientFileDto?.client_id
+      }
+
+      this.clientModel.create(clientfile_data)
+    })
+
+
+
+
+    return {status: 'ok'};
   }
 
   findAll() {
@@ -21,6 +55,8 @@ export class ClientFileService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} clientFile`;
+    return this.clientModel.destroy({
+      where: {id}
+    });
   }
 }

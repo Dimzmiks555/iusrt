@@ -87,7 +87,7 @@ const LK = observer( ({ client}) => {
                   </Box>
                   <Box>
                     <h3>Государству</h3>
-                    <span>500,00₽</span>
+                    <span>{ClientStore.client?.receipt_debts_summ?.toFixed(2)} ₽</span>
                     <p>по 1 пакету услуг</p>
                     <Link href="/lk/receipts"><button className='action_button'>Подробнее</button></Link>
                   </Box>
@@ -96,10 +96,12 @@ const LK = observer( ({ client}) => {
               <Box className={styles.default_card}>
                 <h2 >Мои документы</h2>
                 <Box className={styles.my_documents}>
-                  <Box >
-                    <p>Копия ИНН</p>
-                    <button className='action_button'>Скачать</button>
-                  </Box>
+                  {ClientStore?.client?.client_files?.map(client_file => (
+                    <Box sx={{mt: 2}}>
+                      <p>{client_file?.name}</p>
+                      <a href={`http://localhost:5000/${client_file?.filename}`} target="_blank"><button className='action_button'>Скачать</button></a>
+                    </Box>
+                  ))}
                 </Box>
               </Box>
             </Box>

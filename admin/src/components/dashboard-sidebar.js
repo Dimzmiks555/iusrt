@@ -33,15 +33,20 @@ const items = [
     title: 'Квитанции'
   },
   {
-    href: '/reports',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Отчеты'
-  },
-  {
-    href: '/payments',
+    href: '/services',
     icon: (<CogIcon fontSize="small" />),
-    title: 'Платежи'
+    title: 'Услуги'
   },
+  // {
+  //   href: '/reports',
+  //   icon: (<UserIcon fontSize="small" />),
+  //   title: 'Отчеты'
+  // },
+  // {
+  //   href: '/payments',
+  //   icon: (<CogIcon fontSize="small" />),
+  //   title: 'Платежи'
+  // },
 ];
 
 export const DashboardSidebar = (props) => {
