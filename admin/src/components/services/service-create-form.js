@@ -121,6 +121,8 @@ export const ServiceCreateForm = ({ clients, ...rest }) => {
 
     formdata.append("client_id", clientID);
     formdata.append("summ", data.summ);
+    formdata.append("comment", data.comment);
+    formdata.append("subtitle", data.subtitle);
 
     fetch(`http://localhost:5000/service`, {
       method: "POST",
@@ -229,8 +231,8 @@ export const ServiceCreateForm = ({ clients, ...rest }) => {
                 </Select>
               </FormControl>
               или
-              <TextField sx={{ mb: 2 }} label="Написать тип" fullWidth></TextField>
-              <TextField label="Комментарий" multiline rows={5} fullWidth></TextField>
+              <TextField sx={{ mb: 2 }} {...register("subtitle")} label="Написать тип" fullWidth></TextField>
+              <TextField label="Комментарий" {...register("comment")} multiline rows={5} fullWidth></TextField>
             </Box>
             <Box sx={{ mb: 2, p: 2, width: "30%", borderRadius: "20px" }} className="pdf_canvas">
               {/* <h2>Предварительный просмотр</h2> */}

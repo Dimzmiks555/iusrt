@@ -46,6 +46,12 @@
 
     color: #e00
 }
+
+.payment_blocks b {
+    font-size: 32px;
+    font-weight: normal;
+    color: #0e0
+}
 .payment_blocks p {
     margin-bottom: 10px;
 }

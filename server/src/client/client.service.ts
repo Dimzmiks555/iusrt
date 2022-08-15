@@ -6,6 +6,7 @@ import * as bcrypt from 'bcryptjs'
 import { ClientFile } from 'src/client-file/entities/client-file.entity';
 import { InjectModel } from '@nestjs/sequelize';
 import { Receipt } from 'src/receipt/entities/receipt.entity';
+import { Service } from 'src/service/entities/service.entity';
 
 @Injectable()
 export class ClientService {
@@ -14,7 +15,10 @@ export class ClientService {
   constructor(
 
     @InjectModel(Receipt)
-    private receiptModel: typeof Receipt
+    private receiptModel: typeof Receipt,
+
+    @InjectModel(Service)
+    private serviceModel: typeof Service
 
   ){}
 
@@ -50,6 +54,13 @@ export class ClientService {
       }
     })
 
+    const service_debts = await this.serviceModel.findAll({
+      where: {
+        client_id: client.id,
+        status: 'need_payment'
+      }
+    })
+
     const receipt_debts_summ = receipt_debts.reduce((prev, now) => {
       
       let debt = now.toJSON()
@@ -57,7 +68,20 @@ export class ClientService {
       return prev + +debt?.summ
     }, 0)
 
+    
+    const service_debts_summ = service_debts.reduce((prev, now) => {
+      
+      let debt = now.toJSON()
+
+      return prev + +debt?.summ
+    }, 0)
+
     client.setDataValue('receipt_debts_summ', receipt_debts_summ)
+    client.setDataValue('service_debts_summ', service_debts_summ)
+
+    
+    client.setDataValue('receipt_debts_amount', receipt_debts.length)
+    client.setDataValue('service_debts_amount', service_debts.length)
 
 
     

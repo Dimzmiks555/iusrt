@@ -40,7 +40,7 @@ export default Services;
 
 export async function getServerSideProps() {
 
-  const res = await fetch(`http://localhost:5000/receipt`)
+  const res = await fetch(`http://localhost:5000/service`)
 
   const json = await res.json()
 

@@ -77,32 +77,58 @@ const LK = observer( ({ client}) => {
             </Box>
             <Box>
               <Box className={styles.default_card}>
-                <h2 >Требуется оплата</h2>
+                <h2>Состояние оплаты</h2>
                 <Box className={styles.payment_blocks}>
                   <Box>
                     <h3>Бухгалтеру</h3>
-                    <span>500,00₽</span>
-                    <p>по 1 пакету услуг</p>
-                    <Link href="/lk/services"><button className='action_button'>Подробнее</button></Link>
+                    {ClientStore.client?.service_debts_summ > 0 ? (
+                      <>
+                        <span>{ClientStore.client?.service_debts_summ?.toFixed(2)} ₽</span>
+                        <p>по {ClientStore.client?.service_debts_amount} пак. услуг</p>
+                        <Link href="/lk/services"><button className='action_button'>Подробнее</button></Link>
+                      </>
+                    ) : (
+                      <>
+                        <b>{ClientStore.client?.service_debts_summ?.toFixed(2)} ₽</b>
+                        <p>Задолжностей нет</p>
+                      </>
+                    )}
                   </Box>
                   <Box>
                     <h3>Государству</h3>
-                    <span>{ClientStore.client?.receipt_debts_summ?.toFixed(2)} ₽</span>
-                    <p>по 1 пакету услуг</p>
-                    <Link href="/lk/receipts"><button className='action_button'>Подробнее</button></Link>
+                    {ClientStore.client?.receipt_debts_summ > 0 ? (
+                      <>
+                        <span>{ClientStore.client?.receipt_debts_summ?.toFixed(2)} ₽</span>
+                        <p>по {ClientStore.client?.receipt_debts_amount} пак. квитанций</p>
+                        <Link href="/lk/receipts"><button className='action_button'>Подробнее</button></Link>
+                      </>
+                    ) : (
+                      <>
+                        <b>{ClientStore.client?.receipt_debts_summ?.toFixed(2)} ₽</b>
+                        <p>Задолжностей нет</p>
+                      </>
+                    )}
                   </Box>
                 </Box>
               </Box>
               <Box className={styles.default_card}>
                 <h2 >Мои документы</h2>
-                <Box className={styles.my_documents}>
-                  {ClientStore?.client?.client_files?.map(client_file => (
-                    <Box sx={{mt: 2}}>
-                      <p>{client_file?.name}</p>
-                      <a href={`http://localhost:5000/${client_file?.filename}`} target="_blank"><button className='action_button'>Скачать</button></a>
+                
+                {ClientStore?.client?.client_files?.length > 0 ? (
+                    <Box className={styles.my_documents}>
+                      {ClientStore?.client?.client_files?.map(client_file => (
+                        <Box sx={{mt: 2}}>
+                          <p>{client_file?.name}</p>
+                          <a href={`http://localhost:5000/${client_file?.filename}`} target="_blank"><button className='action_button'>Скачать</button></a>
+                        </Box>
+                      ))}
                     </Box>
-                  ))}
-                </Box>
+                ) : (
+                  <Box className={styles.my_documents}>
+                    <h4>Нет закрепленных документов</h4>
+                  </Box>
+                )}
+                
               </Box>
             </Box>
             

@@ -25,7 +25,7 @@ const ServicesPage = observer( ({ client}) => {
 
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [userData, setUserData] = useState({});
-  const [receipts, setReceipts] = useState([]);
+  const [services, setServices] = useState([]);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -50,10 +50,10 @@ const ServicesPage = observer( ({ client}) => {
                 ClientStore.setUserData(json)
                 console.log(json)
 
-              fetch(`http://localhost:5000/receipt?client_id=${data?.id}`)
+              fetch(`http://localhost:5000/service?client_id=${data?.id}`)
               .then(res => res.json())
-              .then(receipts => {
-                setReceipts(receipts)
+              .then(services => {
+                setServices(services)
               })
 
               })
@@ -97,7 +97,9 @@ const ServicesPage = observer( ({ client}) => {
                       </List>
                     </Box>
                     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                        <ServiceItem></ServiceItem>
+                        {services?.rows?.map(service => (
+                          <ServiceItem service={service}></ServiceItem>
+                        ))}
                     </Box>
                   </Box>
             </div>

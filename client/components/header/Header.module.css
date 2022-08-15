@@ -16,15 +16,20 @@ justify-content: space-between;
 .subheader ul a {
 cursor: pointer;
 }
+
+.subheader ul li > a {
+    cursor: pointer;
+    padding: 0 10px 4px;
+}
 .subheader ul a > b {
 background: #8b00ff;
-padding: 8px 24px;
+padding: 8px 24px !important;
 color: #fff;
 border-radius: 8px;
 }
 .subheader ul a > b:hover {
 background: #ad00ff;
-padding: 8px 24px;
+padding: 8px 24px !important;
 color: #fff;
 border-radius: 8px;
 }
