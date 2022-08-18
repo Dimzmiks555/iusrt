@@ -16,6 +16,15 @@ export const ServiceItem = ({service}) => {
     const handleClose = () => {
       setOpen(false);
     };
+    
+
+    const handleClickOpenAttach = () => {
+        setOpenAttach(true);
+    };
+  
+    const handleCloseAttach = () => {
+        setOpenAttach(false);
+    };
 
 
 
@@ -28,7 +37,7 @@ export const ServiceItem = ({service}) => {
             <h4 className={styles.subtitle}>{service?.subtitle}</h4>
             <Box sx={{display: 'flex'}}>
                 <a className={styles.download_link}><button onClick={handleClickOpen}  className='action_button' variant="contained">Подробнее</button></a>
-                <button className='secondary_button' >Прикрепить</button>
+                <button className='secondary_button' onClick={handleClickOpenAttach}>Прикрепить</button>
             </Box>
         </Box>
         <Box>
@@ -38,7 +47,12 @@ export const ServiceItem = ({service}) => {
             <p>{new Date(service?.createdAt)?.toLocaleDateString()}</p>
             <h2 className={styles.summ}>{service?.summ} ₽</h2>
         </Box>
+<<<<<<< Updated upstream
         <MoreModal service={service} open={open} handleClose={handleClose}></MoreModal>
+=======
+        <MoreModal open={open} handleClose={handleClose}></MoreModal>
+        <AttachModal receipt={service} open={openAttach} handleClose={handleCloseAttach}></AttachModal>
+>>>>>>> Stashed changes
     </Box>
   )
 }
