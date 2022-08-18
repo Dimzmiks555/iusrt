@@ -30,9 +30,9 @@ import { Service } from './service/entities/service.entity';
       password: 'root',
       database: 'accounting',
       models: [Client, Receipt, File, ConfirmationDocument, ClientFile, Service],
-      synchronize: true,
-      autoLoadModels: true,
-      sync: {alter: true}
+      // synchronize: true,
+      // autoLoadModels: true,
+      // sync: {alter: true}
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'receipts'),
