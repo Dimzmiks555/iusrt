@@ -1,5 +1,6 @@
 import { Box, Chip } from '@mui/material'
 import React, { useState } from 'react'
+import { AttachModal } from './AttachModal'
 import { MoreModal } from './MoreModal'
 import styles from './ServiceItem.module.css'
 
@@ -47,12 +48,8 @@ export const ServiceItem = ({service}) => {
             <p>{new Date(service?.createdAt)?.toLocaleDateString()}</p>
             <h2 className={styles.summ}>{service?.summ} ₽</h2>
         </Box>
-<<<<<<< Updated upstream
-        <MoreModal service={service} open={open} handleClose={handleClose}></MoreModal>
-=======
         <MoreModal open={open} handleClose={handleClose}></MoreModal>
-        <AttachModal receipt={service} open={openAttach} handleClose={handleCloseAttach}></AttachModal>
->>>>>>> Stashed changes
+        <AttachModal service={service} open={openAttach} handleClose={handleCloseAttach}></AttachModal>
     </Box>
   )
 }

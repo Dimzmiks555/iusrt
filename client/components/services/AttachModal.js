@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
 import AccountingIcon from '../../icons/accounting'
 
-import styles from './ReceiptsItem.module.css'
+import styles from '../receipts/ReceiptsItem.module.css'
 
 export const AttachModal = ({service, open, handleClose}) => {
 
