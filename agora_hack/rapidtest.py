@@ -40,7 +40,7 @@ with open(dir_path + '/data.json', encoding='utf-8') as f:
     print('Количество товаров: ' + str(len(non_etalons)))
 
     for etalon in etalons:
-        name = etalon['name'].lower().replace(',', '')
+        name = etalon['name'].replace('/', ',').lower().replace(',', '').replace('+', '')
 
         # name = translit(name, 'ru', reversed=True)
 
@@ -50,39 +50,84 @@ with open(dir_path + '/data.json', encoding='utf-8') as f:
 
         def map_non_etalon(item):
             # tr = translit(item['name'].lower().replace(',', ''), 'ru', reversed=True)
-            tr = item['name']
+            tr = item['name'].replace('/', ',').lower().replace(',', '').replace('+', '')
             return tr
         
         fuzzresult = fuzz.process.extract(name, list(map(map_non_etalon, non_etalons)), scorer=fuzz.fuzz.token_set_ratio, limit=100)
 
-        res = list(filter(lambda item: item[1] > 99, fuzzresult))
+        res = list(filter(lambda item: item[1] > 80, fuzzresult))
+
 
         if len(res) > 0:
+
+            similar_word = set()
+
+
+            
+            wrds = name.split(' ')
             
             for it in res:
 
+
+                for wrd in wrds:
+                    if wrd.lower() in it[0].replace('/', ',').lower().replace(',', ''):
+                        similar_word.add(wrd.lower())
+                
+                
                 pr = {
-                    'etalon': etalon['name'],
+                    'etalon': name,
                     'product': non_etalons[it[2]]['name']
                 }
 
-                if (non_etalons[it[2]]['reference_id'] == etalon['product_id']):
-                    if (not pr in true_result):
+                print(pr)
+            # print(similar_word)
+            for sim_word in similar_word:
+                for it in res:
+
+                    lst = list(it)
+
+                    lst[0] = lst[0].replace('/', ',').lower().replace(',', '').replace('+', '')
+
+                    if (re.search('\d+', sim_word) is None):
+                        lst[0] = lst[0].replace(sim_word, '').strip()
 
 
-                        true_result.append(pr)
-                else:
-                    result.append(pr)
-                    false_result.append(False)
-
-                # print(it, len(second_non_etalons))
-
-                if(non_etalons[it[2]] in second_non_etalons ):
-                    del second_non_etalons[second_non_etalons.index(non_etalons[it[2]])]
+                    res[res.index(it)] = tuple(lst)
+                
 
 
-    print(len(second_non_etalons))
-    print(second_non_etalons[:70])
+            def map_filtered_non_etalon(item):
+
+
+                return item[0]
+
+            second_fuzzresult = fuzz.process.extract(name, list(map(map_filtered_non_etalon, res)), scorer=fuzz.fuzz.token_set_ratio, limit=100)
+
+            print(second_fuzzresult)
+
+            second_res = list(filter(lambda item: item[1] > 40, second_fuzzresult))
+
+            print(name)
+
+            if len(res) > 0:
+                for item in second_res:
+
+
+                    if (non_etalons[res[item[2]][2]]['reference_id'] == etalon['product_id']):
+                        if (not pr in true_result):
+                            true_result.append(pr)
+                    else:
+                        result.append(pr)
+                        false_result.append(False)
+
+                # # print(it, len(second_non_etalons))
+
+                # if(non_etalons[it[2]] in second_non_etalons ):
+                #     del second_non_etalons[second_non_etalons.index(non_etalons[it[2]])]
+
+
+    # print(len(second_non_etalons))
+    # print(second_non_etalons[:70])
 
     # for etalon in etalons:
     #     name = etalon['name']
