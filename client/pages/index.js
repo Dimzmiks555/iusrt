@@ -21,7 +21,7 @@ function valuetext(value) {
   return `${value}`;
 }
 
-export function DiscreteSliderMarks({marks, max}) {
+export function DiscreteSliderMarks({ marks, max }) {
   return (
     <Box fullWidth>
       <Slider
@@ -41,31 +41,31 @@ export default function Home() {
   return (
     <Layout>
       <div>
-            <div className="container" style={{display: 'flex', justifyContent: 'space-between'}}>
-                <div className={styles.main_offer}>
-                    <h1>Доверьте учет своего бизнеса нам!</h1>
-                    <div className={styles.main__list}>
-                        <ul>
-                          <li><i>•</i> Бухгалтерский учет</li>
-                          <li><i>•</i> Налоговый учет</li>
-                          <li><i>•</i> Кадровый учет </li>
-                          <li><i>•</i> Всё прочее</li>
-                        </ul>
-                    </div>
-                    <Link href='/login'><a href='#tears'><button className={styles.main_button}>Войти в личный кабинет</button></a></Link>
-                    
-                </div>
-                <div className={styles.main_img}>
-                  <img src='/main/a8adc8270125fd06b25c67f448691254.png'></img>
-                </div>  
+        <div className="container" style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div className={styles.main_offer}>
+            <h1>Доверьте учет своего бизнеса нам!</h1>
+            <div className={styles.main__list}>
+              <ul>
+                <li>📁 Бухгалтерский учет</li>
+                <li>💵 Налоговый учет</li>
+                <li>✒️ Кадровый учет </li>
+                <li>📜 Всё прочее</li>
+              </ul>
             </div>
-        <Services/>
-        <Partners/>
-        <Contacts/>
-        
-        
-        
-    </div>
+            <Link href='/login'><a href='#tears'><button className={styles.main_button}>Войти</button></a></Link>
+
+          </div>
+          <div className={styles.main_img}>
+            <img src='/main/a8adc8270125fd06b25c67f448691254.png'></img>
+          </div>
+        </div>
+        <Services />
+        <Partners />
+        <Contacts />
+
+
+
+      </div>
     </Layout>
   )
 }

@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Nunito', sans-serif !important;
-    color: #333;
+  font-family: 'Jost', sans-serif !important;
+  color: #333;
 }
 
 a {
@@ -17,7 +17,15 @@ a {
   box-sizing: border-box;
 }
 
-ul, li, h1,h2,h3,h4,h5,h6,p {
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   padding: 0;
   margin: 0;
   list-style: none;
@@ -26,14 +34,20 @@ ul, li, h1,h2,h3,h4,h5,h6,p {
 header {
   margin-top: 20px;
 }
+
 hr {
   border: 2px solid #8b00ff;
   width: 100px;
   display: block;
   margin: 5px 0 0;
 }
-button, input {
-  font-family: inherit  !important;
+
+button,
+input,
+label,
+nav,
+span {
+  font-family: inherit !important;
   display: block;
 }
 
@@ -43,7 +57,9 @@ footer {
   padding: 40px;
 }
 
-svg, img, button {
+svg,
+img,
+button {
   user-select: none;
 }
 
@@ -78,6 +94,7 @@ main {
   border-radius: 8px;
   font-size: 16px;
 }
+
 .action_button:hover {
   background: #af00ff;
 }
@@ -98,6 +115,7 @@ main {
   border-radius: 8px;
   font-size: 16px;
 }
+
 .secondary_button:hover {
   background: #eee;
 }
@@ -108,4 +126,3 @@ main {
   font-weight: bold;
   border-bottom: 2px solid #8b00ff;
 }
-
